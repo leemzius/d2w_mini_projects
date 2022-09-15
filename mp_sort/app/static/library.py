@@ -2,7 +2,10 @@ from org.transcrypt.stubs.browser import *
 import random
 
 def gen_random_int(number, seed):
-	pass
+	arr = list(range(number))
+	random.seed(seed)
+	random.shuffle(arr)
+	return arr
 
 def generate():
 	number = 10
@@ -10,20 +13,27 @@ def generate():
 
 	# call gen_random_int() with the given number and seed
 	# store it to the variable array
-	pass
+	array = gen_random_int(number, seed)
 
-	array = None
 	# convert the items into one single string 
 	# the number should be separated by a comma
 	# and a full stop should end the string.
-	pass
-
-	array_str = None
+	array_str = ','.join(array) + '.'
 
 	# This line is to placed the string into the HTML
-	# under div section with the id called "generate"	
+	# under div section with the id called "generate"
 	document.getElementById("generate").innerHTML = array_str
 
+def isort(arr):
+	# insertion sort
+	for i in range(1, len(arr)):
+		j = i
+		tmp = arr[j]
+		while (j > 0) and (tmp < arr[j-1]):
+			arr[j] = arr[j-1]
+			j -= 1
+		arr[j] = tmp
+	return arr
 
 def sortnumber1():
 	'''	This function is used in Exercise 1.
@@ -35,10 +45,10 @@ def sortnumber1():
 		- call your sort function, either bubble sort or insertion sort
 		- create a string of the sorted numbers and store it in array_str
 	'''
-	pass
-
-	array_str = None
-	
+	array_str = document.getElementById("generate").innerHTML
+	arr = [int(i) for i in array_str.replace('.', '').split(',')]
+	arr = isort(arr)
+	array_str = ','.join(arr) + '.'	
 	document.getElementById("sorted").innerHTML = array_str
 
 def sortnumber2():
@@ -62,10 +72,13 @@ def sortnumber2():
 
 	# Your code should start from here
 	# store the final string to the variable array_str
-	pass
-
-	array_str = None
-
+	try:
+		arr = [int(i) for i in value.replace(' ','').replace('.', '').split(',')]
+	except:
+		window.alert("This is not a valid sequence of numbers")
+		return
+	arr = isort(arr)		
+	array_str = ','.join(arr) + '.'	
 	document.getElementById("sorted").innerHTML = array_str
 
 

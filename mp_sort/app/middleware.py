@@ -3,7 +3,7 @@ import socket
 
 class PrefixMiddleware(object):
 
-    def __init__(self, app, voc=True):
+    def __init__(self, app, voc=False):
         self.app = app
         if voc:
             myip = self.get_myip()
